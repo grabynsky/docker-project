@@ -5,15 +5,19 @@ const { User } = require('./database');
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extends: true}));
+app.use(express.urlencoded({extended: true}));
 
-app.get('/users', async (req,res) => {
+app.get('/', (req, res)=>{
+    res.json('Hello db')
+})
+
+app.get('/users', async (req, res) => {
     const users = await User.find();
-    res.json(users)
+    res.json(users);
 })
 
 app.post('/users', async (req, res) => {
-    await user = await User.create(req.body);
+    const user = await User.create(req.body);
     res.json(user)
 })
 

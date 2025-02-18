@@ -16,7 +16,7 @@ services:
   db:
     image: mongo
     ports:
-      - "5555:27017",
+      - "5555:27017"
     env_file:
       - .env
     volumes:

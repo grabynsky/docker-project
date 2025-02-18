@@ -1,1 +1,37 @@
-i
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deploy
+  labels:
+    app: my-deploy
+spec:
+    replicas: 8
+    selector:
+      matchLabels:
+        app: my-deploy
+    template:
+      metadata:
+        labels:
+          app: my-deploy
+      spec:
+        containers:
+          - name: my-deploy
+            image: grabynsky/docker-okten
+            ports:
+              - containerPort: 5000
+            resources:
+              limits:
+                cpu: "250m"
+                memory: "900Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-deploy-service
+spec:
+  selector:
+    app: my-deploy
+  ports:
+    - port: 80
+      targetPort: 5000
+  type: LoadBalancer
